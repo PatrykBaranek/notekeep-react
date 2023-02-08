@@ -4,18 +4,16 @@ import NoteList from '../model/NoteList';
 
 export const useNotes = () => {
   const noteList = NoteList.instance;
-  const [notes, setNotes] = useState<INote[]>(noteList.getNotes());
-
-  const notesMemo = useMemo(() => {
-    return notes;
-  }, [notes]);
+  const [notes, setNotes] = useState<INote[]>([...noteList.getNotes()]);
 
   useEffect(() => {
-    console.log(notesMemo);
-  }, [notesMemo]);
+    saveStateNotes();
+  }, [noteList.getNotes]);
 
   const saveStateNotes = () => {
-    setNotes(noteList.getNotes());
+    console.log('notes localhost', noteList.getNotes());
+    setNotes([...noteList.getNotes()]);
+    console.log('notes state', notes);
   };
 
   const handleRemoveAllNotes = () => {
@@ -39,7 +37,7 @@ export const useNotes = () => {
   };
 
   return {
-    notes: notesMemo,
+    notes,
     handleRemoveAllNotes,
     handleRemoveNote,
     handleUpdateNote,

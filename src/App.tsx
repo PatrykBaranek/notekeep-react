@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/esm/Button';
@@ -18,10 +18,10 @@ const App = () => {
     <>
       <Container className="mt-5">
         <Row className="d-flex justify-content-center gap-4">
-          <Button className="col-3" variant="success" onClick={handleOpenForm}>
+          <Button className="col-3" variant="outline-success" onClick={handleOpenForm}>
             Add Note
           </Button>
-          <Button className="col-3" variant="danger" onClick={handleRemoveAllNotes}>
+          <Button className="col-3" variant="outline-danger" onClick={handleRemoveAllNotes}>
             Remove All Notes
           </Button>
           {openNewNoteForm && (

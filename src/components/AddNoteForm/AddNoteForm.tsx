@@ -60,10 +60,11 @@ export const AddNoteForm = ({ handleCloseForm }: AddNoteFormProps) => {
           <Form.Check ref={pinRef} type="checkbox" label={'Pin?'} />
         </Form.Group>
       </Row>
-
-      <Button variant="success" type="submit">
-        Add Note
-      </Button>
+      <Row>
+        <Button variant="success" type="submit">
+          Add Note
+        </Button>
+      </Row>
     </Form>
   );
 };

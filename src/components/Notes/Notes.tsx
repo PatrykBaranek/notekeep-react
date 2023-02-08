@@ -1,6 +1,6 @@
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { INote } from '../../model/Note';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ModalComponent } from '../ModalComponent/ModalComponent';
 import { NoteDetails } from '../NoteDetails/NoteDetails';
 
@@ -17,6 +17,8 @@ export const Notes = ({ notes }: NotesProps) => {
     setNoteId(noteId);
   };
   const handleCloseDetails = () => setOpenDetails(false);
+
+  useEffect(() => {}, [notes]);
 
   return (
     <>

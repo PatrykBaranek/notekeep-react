@@ -1,4 +1,4 @@
-import { Container, Row } from 'react-bootstrap';
+import { Button, Container, Row } from 'react-bootstrap';
 import { useNotes } from '../../hooks/useNotes';
 
 interface NoteDetailsProps {
@@ -13,10 +13,13 @@ export const NoteDetails: React.FC<NoteDetailsProps> = ({ noteId }) => {
   return (
     <Container className="text-dark">
       <Row>
-        <h1 className="text-center">{noteDetails?.title}</h1>
+        <h2 className="text-center">{noteDetails?.title}</h2>
       </Row>
       <Row>
         <p>{noteDetails?.description}</p>
+      </Row>
+      <Row>
+        <Button variant="warning">Edit Note</Button>
       </Row>
     </Container>
   );
