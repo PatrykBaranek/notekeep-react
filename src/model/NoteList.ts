@@ -22,32 +22,33 @@ export default class NoteList implements INoteList {
     if (!localStorage.getItem('my-notes')) {
       return (this._notes = []);
     }
+    if (this._notes.length > 0) {
+      return this._notes;
+    }
+
     this._notes = JSON.parse(localStorage.getItem('my-notes') as string) as INote[];
 
     return this._notes;
   }
 
   public add(note: INote): void {
-    this.getNotes();
+    if (this._notes.find((n) => n.id === note.id)) return;
     this._notes.push(note);
     this.saveToLocalStorage();
   }
 
   public update(note: INote): void {
-    this.getNotes();
     const index = this._notes.findIndex((n) => n.id === note.id);
     this._notes[index] = note;
     this.saveToLocalStorage();
   }
 
   public remove(note: INote): void {
-    this.getNotes();
     this._notes = this._notes.filter((n) => n.id !== note.id);
     this.saveToLocalStorage();
   }
 
   public clear(): void {
-    this.getNotes();
     this._notes = [];
     this.saveToLocalStorage();
   }
