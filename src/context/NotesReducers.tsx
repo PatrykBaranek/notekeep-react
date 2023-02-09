@@ -15,31 +15,23 @@ export const initialState: StateType = {
 };
 
 export const notesReducer = (state: StateType, action: ActionType): StateType => {
+  let newState;
   switch (action.type) {
     case 'ADD_NOTE':
       NoteList.instance.add(action.payload as INote);
-      return {
-        notes: [...state.notes, action.payload as INote],
-      };
+      break;
     case 'REMOVE_NOTE':
       NoteList.instance.remove(action.payload as INote);
-      return {
-        ...state,
-        notes: [...NoteList.instance.getNotes()],
-      };
+      break;
     case 'REMOVE_ALL_NOTES':
       NoteList.instance.clear();
-      return {
-        ...state,
-        notes: [...NoteList.instance.getNotes()],
-      };
+      break;
     case 'UPDATE_NOTE':
       NoteList.instance.update(action.payload as INote);
-      return {
-        ...state,
-        notes: [...NoteList.instance.getNotes()],
-      };
+      break;
     default:
       return state;
   }
+  newState = { notes: [...NoteList.instance.getNotes()] };
+  return newState;
 };
