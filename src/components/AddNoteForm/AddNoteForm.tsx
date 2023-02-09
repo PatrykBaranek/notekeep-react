@@ -24,10 +24,15 @@ export const AddNoteForm = ({ handleCloseForm }: AddNoteFormProps) => {
     const color = colorRef.current?.value as string;
     const pin = pinRef.current?.checked as boolean;
 
-    const noteList = NoteList.instance;
+    const noteList = NoteList.instance.getNotes();
+
+    const generateId = () => {
+      if (noteList.length === 0) return 1;
+      return noteList[noteList.length - 1].id + 1;
+    };
 
     const newNote: INote = {
-      id: noteList.getNotes().length + 1,
+      id: generateId(),
       title,
       description,
       date: new Date(),
@@ -37,8 +42,8 @@ export const AddNoteForm = ({ handleCloseForm }: AddNoteFormProps) => {
       isList: false,
     };
 
-    handleCloseForm();
     handleAddNote(newNote);
+    handleCloseForm();
   };
 
   const generateRandomColor = () => {
