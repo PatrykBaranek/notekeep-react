@@ -24,7 +24,7 @@ export const Notes = ({ notes }: NotesProps) => {
         <h1 className="text-light text-center mb-5">Notes</h1>
         <Row className="gap-3 d-flex justify-content-center align-items-start">
           {notes.map((note, index) => (
-            <Col key={index} sm={12} lg={4} xl={3}>
+            <Col key={index} sm={12} md={5} lg={4} xl={3}>
               <Card
                 style={{
                   backgroundColor: note.color,
@@ -39,6 +39,9 @@ export const Notes = ({ notes }: NotesProps) => {
                   <Card.Title>{note.title}</Card.Title>
                   <Card.Text>{note.description}</Card.Text>
                 </Card.Body>
+                <Card.Footer>
+                  <Card.Text>{note.date.toLocaleString()}</Card.Text>
+                </Card.Footer>
               </Card>
             </Col>
           ))}
