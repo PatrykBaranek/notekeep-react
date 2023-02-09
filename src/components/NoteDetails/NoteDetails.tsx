@@ -1,14 +1,17 @@
-import { Button, Container, Row } from 'react-bootstrap';
-import { useNotes } from '../../hooks/useNotes';
+import { useContext } from 'react';
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { NotesContext } from '../../context/NotesContext';
+import { INote } from '../../model/Note';
 
 interface NoteDetailsProps {
   noteId: number;
+  handleCloseDetails: () => void;
 }
 
-export const NoteDetails: React.FC<NoteDetailsProps> = ({ noteId }) => {
-  const { notes } = useNotes();
+export const NoteDetails: React.FC<NoteDetailsProps> = ({ noteId, handleCloseDetails }) => {
+  const { state, handleDeleteNote } = useContext(NotesContext);
 
-  const noteDetails = notes.find((note) => note.id === noteId);
+  const noteDetails = state.notes.find((note) => note.id === noteId);
 
   return (
     <Container className="text-dark">
@@ -19,7 +22,23 @@ export const NoteDetails: React.FC<NoteDetailsProps> = ({ noteId }) => {
         <p>{noteDetails?.description}</p>
       </Row>
       <Row>
-        <Button variant="warning">Edit Note</Button>
+        <Col>
+          <Button variant="warning" style={{ width: '100%' }}>
+            Edit Note
+          </Button>
+        </Col>
+        <Col>
+          <Button
+            variant="danger"
+            style={{ width: '100%' }}
+            onClick={() => {
+              handleDeleteNote(noteDetails as INote);
+              handleCloseDetails();
+            }}
+          >
+            Delete Note
+          </Button>
+        </Col>
       </Row>
     </Container>
   );
