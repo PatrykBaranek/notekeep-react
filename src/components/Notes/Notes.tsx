@@ -1,6 +1,6 @@
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { INote } from '../../model/Note';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ModalComponent } from '../ModalComponent/ModalComponent';
 import { NoteDetails } from '../NoteDetails/NoteDetails';
 
@@ -18,15 +18,13 @@ export const Notes = ({ notes }: NotesProps) => {
   };
   const handleCloseDetails = () => setOpenDetails(false);
 
-  useEffect(() => {}, [notes]);
-
   return (
     <>
       <Container className="my-5 ">
         <h1 className="text-light text-center mb-5">Notes</h1>
         <Row className="gap-3 d-flex justify-content-center align-items-start">
-          {notes.map((note) => (
-            <Col key={note.id} sm={12} lg={4} xl={3}>
+          {notes.map((note, index) => (
+            <Col key={index} sm={12} lg={4} xl={3}>
               <Card
                 style={{
                   backgroundColor: note.color,
@@ -48,7 +46,7 @@ export const Notes = ({ notes }: NotesProps) => {
       </Container>
       {openDetails && (
         <ModalComponent show={openDetails} handleCloseModal={handleCloseDetails}>
-          <NoteDetails noteId={noteId} />
+          <NoteDetails noteId={noteId} handleCloseDetails={handleCloseDetails} />
         </ModalComponent>
       )}
     </>

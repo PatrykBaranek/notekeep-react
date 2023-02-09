@@ -1,15 +1,15 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useContext, useEffect, useRef } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import NoteList from '../../model/NoteList';
 import { INote } from '../../model/Note';
-import { useNotes } from '../../hooks/useNotes';
+import { NotesContext } from '../../context/NotesContext';
 
 interface AddNoteFormProps {
   handleCloseForm: () => void;
 }
 
 export const AddNoteForm = ({ handleCloseForm }: AddNoteFormProps) => {
-  const { handleAddNote } = useNotes();
+  const { handleAddNote } = useContext(NotesContext);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -41,6 +41,15 @@ export const AddNoteForm = ({ handleCloseForm }: AddNoteFormProps) => {
     handleAddNote(newNote);
   };
 
+  const generateRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId={'title'}>
@@ -54,7 +63,7 @@ export const AddNoteForm = ({ handleCloseForm }: AddNoteFormProps) => {
       <Row className="mb-3">
         <Form.Group as={Col} className="mb-3 col-2">
           <Form.Label className="text-dark">Color</Form.Label>
-          <Form.Control ref={colorRef} type="color" />
+          <Form.Control ref={colorRef} defaultValue={generateRandomColor()} type="color" />
         </Form.Group>
         <Form.Group as={Col} className="mb-3 col-2 gap-1 text-dark">
           <Form.Check ref={pinRef} type="checkbox" label={'Pin?'} />
