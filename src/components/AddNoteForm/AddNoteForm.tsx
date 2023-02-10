@@ -35,7 +35,7 @@ export const AddNoteForm = ({ handleCloseForm }: AddNoteFormProps) => {
       id: generateId(),
       title,
       description,
-      date: new Date(),
+      date: new Date().toLocaleString(),
       color,
       isPin: pin,
       isDone: false,

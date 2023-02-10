@@ -3,7 +3,7 @@ export interface INote {
   title: string;
   description: string;
   color: string;
-  date: Date;
+  date: string;
   isPin: boolean;
   isDone: boolean;
   isList: boolean;
@@ -13,7 +13,7 @@ export default class Note implements INote {
   id: number;
   title: string;
   description: string;
-  date: Date;
+  date: string;
   color: string;
   isPin: boolean;
   isDone: boolean;
@@ -33,7 +33,7 @@ export default class Note implements INote {
     this.title = title;
     this.description = description;
     this.color = color;
-    this.date = date;
+    this.date = date.toLocaleString();
     this.isPin = isPin;
     this.isDone = isDone;
     this.isList = isList;
