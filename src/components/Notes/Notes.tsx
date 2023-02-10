@@ -3,6 +3,8 @@ import { INote } from '../../model/Note';
 import { useState } from 'react';
 import { ModalComponent } from '../ModalComponent/ModalComponent';
 import { NoteDetails } from '../NoteDetails/NoteDetails';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapPin } from '@fortawesome/free-solid-svg-icons';
 
 interface NotesProps {
   notes: INote[];
@@ -17,6 +19,22 @@ export const Notes = ({ notes }: NotesProps) => {
     setNoteId(noteId);
   };
   const handleCloseDetails = () => setOpenDetails(false);
+
+  const sortNotes = () => {
+    const pinned = notes.filter((note) => note.isPin);
+    const unpinned = notes.filter((note) => !note.isPin);
+    return [...pinned, ...unpinned];
+  };
+
+  notes = sortNotes();
+
+  if (openDetails) {
+    return (
+      <ModalComponent show={openDetails} handleCloseModal={handleCloseDetails}>
+        <NoteDetails noteId={noteId} handleCloseDetails={handleCloseDetails} />
+      </ModalComponent>
+    );
+  }
 
   return (
     <>
@@ -35,23 +53,25 @@ export const Notes = ({ notes }: NotesProps) => {
                 onClick={() => handleOpenDetails(note.id)}
                 title="Click to see details"
               >
+                {note.isPin && (
+                  <FontAwesomeIcon
+                    icon={faMapPin}
+                    className="text-dark position-absolute"
+                    style={{ right: 10, top: 5, fontSize: '1.75rem' }}
+                  />
+                )}
                 <Card.Body>
                   <Card.Title>{note.title}</Card.Title>
                   <Card.Text>{note.description}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <Card.Text>{note.date.toLocaleString()}</Card.Text>
+                  <Card.Text>{note.date}</Card.Text>
                 </Card.Footer>
               </Card>
             </Col>
           ))}
         </Row>
       </Container>
-      {openDetails && (
-        <ModalComponent show={openDetails} handleCloseModal={handleCloseDetails}>
-          <NoteDetails noteId={noteId} handleCloseDetails={handleCloseDetails} />
-        </ModalComponent>
-      )}
     </>
   );
 };
