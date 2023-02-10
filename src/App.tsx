@@ -14,6 +14,14 @@ const App = () => {
   const handleOpenForm = () => setOpenNewNoteForm(true);
   const handleCloseForm = () => setOpenNewNoteForm(false);
 
+  if (openNewNoteForm) {
+    return (
+      <ModalComponent show={openNewNoteForm} handleCloseModal={handleCloseForm}>
+        <AddNoteForm handleCloseForm={handleCloseForm} />
+      </ModalComponent>
+    );
+  }
+
   return (
     <>
       <Container className="mt-5">
@@ -24,11 +32,6 @@ const App = () => {
           <Button className="col-3" variant="outline-danger" onClick={handleDeleteAllNotes}>
             Remove All Notes
           </Button>
-          {openNewNoteForm && (
-            <ModalComponent show={openNewNoteForm} handleCloseModal={handleCloseForm}>
-              <AddNoteForm handleCloseForm={handleCloseForm} />
-            </ModalComponent>
-          )}
         </Row>
       </Container>
       <Notes notes={state.notes} />
