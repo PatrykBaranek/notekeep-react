@@ -14,6 +14,7 @@ export const AddNoteForm = ({ handleCloseForm }: AddNoteFormProps) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const colorRef = useRef<HTMLInputElement>(null);
+  const textColorRef = useRef<HTMLInputElement>(null);
   const pinRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -22,6 +23,7 @@ export const AddNoteForm = ({ handleCloseForm }: AddNoteFormProps) => {
     const title = titleRef.current?.value as string;
     const description = descriptionRef.current?.value as string;
     const color = colorRef.current?.value as string;
+    const textColor = textColorRef.current?.value as string;
     const pin = pinRef.current?.checked as boolean;
 
     const noteList = NoteList.instance.getNotes();
@@ -37,6 +39,7 @@ export const AddNoteForm = ({ handleCloseForm }: AddNoteFormProps) => {
       description,
       date: new Date().toLocaleString(),
       color,
+      textColor,
       isPin: pin,
       isDone: false,
       isList: false,
@@ -66,11 +69,15 @@ export const AddNoteForm = ({ handleCloseForm }: AddNoteFormProps) => {
         <Form.Control ref={descriptionRef} as="textarea" rows={3} required />
       </Form.Group>
       <Row className="mb-3">
-        <Form.Group as={Col} className="mb-3 col-2">
+        <Form.Group as={Col} className="mb-3 col-3">
           <Form.Label className="text-dark">Color</Form.Label>
           <Form.Control ref={colorRef} defaultValue={generateRandomColor()} type="color" />
         </Form.Group>
-        <Form.Group as={Col} className="mb-3 col-2 gap-1 text-dark">
+        <Form.Group as={Col} className="mb-3 col-3">
+          <Form.Label className="text-dark">Text Color</Form.Label>
+          <Form.Control ref={textColorRef} defaultValue={'#fff'} type="color" />
+        </Form.Group>
+        <Form.Group as={Col} className="mb-3 col-3 gap-1 text-dark">
           <Form.Check ref={pinRef} type="checkbox" label={'Pin?'} />
         </Form.Group>
       </Row>

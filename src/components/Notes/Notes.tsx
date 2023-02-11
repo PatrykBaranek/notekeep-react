@@ -18,6 +18,7 @@ export const Notes = ({ notes }: NotesProps) => {
     setOpenDetails(true);
     setNoteId(noteId);
   };
+
   const handleCloseDetails = () => setOpenDetails(false);
 
   const sortNotes = () => {
@@ -42,11 +43,11 @@ export const Notes = ({ notes }: NotesProps) => {
         <h1 className="text-light text-center mb-5">Notes</h1>
         <Row className="gap-3 d-flex justify-content-center align-items-start">
           {notes.map((note, index) => (
-            <Col key={index} sm={12} md={5} lg={4} xl={3}>
+            <Col key={index} sm={12} md={6} lg={4} xl={3}>
               <Card
                 style={{
                   backgroundColor: note.color,
-                  color: 'whitesmoke',
+                  color: note.textColor,
                   height: '300px',
                   cursor: 'pointer',
                 }}
@@ -60,9 +61,13 @@ export const Notes = ({ notes }: NotesProps) => {
                     style={{ right: 10, top: 5, fontSize: '1.75rem' }}
                   />
                 )}
-                <Card.Body>
-                  <Card.Title>{note.title}</Card.Title>
-                  <Card.Text>{note.description}</Card.Text>
+                <Card.Body style={{ overflow: 'hidden' }}>
+                  <Card.Title style={{ fontSize: '1.7rem', textAlign: 'center' }}>
+                    {note.title}
+                  </Card.Title>
+                  <Card.Text className="p-2" style={{ lineHeight: '1.05em' }}>
+                    {note.description}
+                  </Card.Text>
                 </Card.Body>
                 <Card.Footer>
                   <Card.Text>{note.date}</Card.Text>

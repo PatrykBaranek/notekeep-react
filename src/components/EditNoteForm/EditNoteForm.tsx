@@ -1,7 +1,6 @@
 import { Button, Form } from 'react-bootstrap';
-import Note, { INote } from '../../model/Note';
+import { INote } from '../../model/Note';
 import { useContext, useRef } from 'react';
-import NoteList from '../../model/NoteList';
 import { NotesContext } from '../../context/NotesContext';
 
 interface EditNoteFormProps {
@@ -15,6 +14,7 @@ export const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, handleCloseEdi
   const textRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const colorRef = useRef<HTMLInputElement>(null);
+  const textColorRef = useRef<HTMLInputElement>(null);
   const pinRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,6 +23,7 @@ export const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, handleCloseEdi
     const title = textRef.current?.value as string;
     const description = descriptionRef.current?.value as string;
     const color = colorRef.current?.value as string;
+    const textColor = textColorRef.current?.value as string;
     const pin = pinRef.current?.checked as boolean;
 
     const updatedNote: INote = {
@@ -31,6 +32,7 @@ export const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, handleCloseEdi
       description: description,
       date: note.date,
       color: color,
+      textColor: textColor,
       isPin: pin,
       isDone: note.isDone,
       isList: note.isList,
@@ -59,6 +61,10 @@ export const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, handleCloseEdi
       <Form.Group className="mb-3" controlId="color">
         <Form.Label className="text-dark">Color</Form.Label>
         <Form.Control ref={colorRef} type="color" defaultValue={note.color} />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="textColor">
+        <Form.Label className="text-dark">Text Color</Form.Label>
+        <Form.Control ref={textColorRef} type="color" defaultValue={note.textColor} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="pin">
         <Form.Check

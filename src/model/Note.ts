@@ -3,6 +3,7 @@ export interface INote {
   title: string;
   description: string;
   color: string;
+  textColor: string;
   date: string;
   isPin: boolean;
   isDone: boolean;
@@ -15,6 +16,7 @@ export default class Note implements INote {
   description: string;
   date: string;
   color: string;
+  textColor: string;
   isPin: boolean;
   isDone: boolean;
   isList: boolean;
@@ -24,6 +26,7 @@ export default class Note implements INote {
     title: string = '',
     description: string = '',
     color: string = '#000',
+    textColor: string = '#fff',
     date: Date = new Date(),
     isPin: boolean = false,
     isDone: boolean = false,
@@ -33,6 +36,7 @@ export default class Note implements INote {
     this.title = title;
     this.description = description;
     this.color = color;
+    this.textColor = textColor;
     this.date = date.toLocaleString();
     this.isPin = isPin;
     this.isDone = isDone;
